@@ -14,21 +14,23 @@
             <img src="../static/src/img/audiobook-animate.svg" alt="" class="img-book">
         </div>
         <div class="right-login">
-            <div class="card-login">
-                <h1>LOGIN</h1>
+                <div class="card-login">
+                    <h1>LOGIN</h1>
+                    <form action="{{url_for('login')}}" method="post" autocomplete="off">
+                        <div class="textfield">
+                            <label for="usuario">Usuário</label>
+                            <input type="text" name="username" id="username" placeholder="Usuário">
+                        </div>
 
-                <div class="textfield">
-                    <label for="usuario">Usuário</label>
-                    <input type="text" name="usuario" id="usuario" placeholder="Usuário">
-                </div>
+                        <div class="textfield">
+                            <label for="senha">Senha</label>
+                            <input type="password" name="password" id="password" placeholder="Senha">
+                        </div>
+                        <button class="btn-login"><a href="/login">Login</a></button>
+                        <h2>{{msg}}</h2>
+                    </form>
 
-                <div class="textfield">
-                    <label for="senha">Senha</label>
-                    <input type="password" name="password" id="password" placeholder="Senha">
-                </div>
-                <button class="btn-login">Login</button>
-
-                <!--<h2>{{msg}}</h2>-->
+                
             </div>
         </div>
     </div>

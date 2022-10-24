@@ -13,7 +13,14 @@
                 <h1 class="logo" href="/">E-Jobs</h1>
                 <ul class="nav-items">
                     <li><a href="#showcase">Inicio</a></li>
+                {% if session['session_adm'] == True: %}
+                    <li><a href="/">Painel</a></li>
+                    <li><a href="/">Trabalhos</a></li>
+                    <li><a href="/">Livros</a></li>
+                    <li><a href="/logout">Sair</a></li>
+                {% else %}
                     <li><a href="/login">Login</a></li>
+                {% endif %}
                 </ul>
             </div>
         </nav>

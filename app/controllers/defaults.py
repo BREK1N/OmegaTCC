@@ -26,7 +26,7 @@ def login():
             session['id'] = account['id'] 
             session['username'] = account['user_adm'] 
             msg = 'Logado com Sucesso!!'
-            return render_template('index.html', msg = msg) 
+            return redirect(url_for('index'))
         else: 
             msg = 'Usuário ou Senha Incorretos !!'
     return render_template('login.html', msg = msg) 
@@ -38,3 +38,9 @@ def logout():
    session.pop('username', None) 
    return redirect(url_for('index')) 
 
+
+@app.route('/painel')
+def painel():
+    if not session.get("session_adm"):
+        return redirect("/login")
+    return render_template('painel.html')

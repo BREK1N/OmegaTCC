@@ -17,6 +17,11 @@ a{
     text-decoration: none;
 }
 
+form{
+    margin: 0;
+    padding: 0;
+}
+
 .main-login{
     width: 100vw;
     height: 100vh;
@@ -102,7 +107,7 @@ a{
 }
 
 .textfield label{
-    color: #f0ffffde;
+    color: #111;
     margin-bottom: 1rem;
 }
 
@@ -114,7 +119,7 @@ a{
     width: 90%;
 
     padding: 1.6rem 0;
-    margin: 2.5rem;
+    margin: 0.8rem;
 
     border: none;
     border-radius: 0.8rem;
@@ -141,6 +146,7 @@ a{
     background: rgb(71, 18, 121);
 
     width: 100%;
+    padding: 1.9rem 0;
 
     color: #eee;
 }

@@ -35,10 +35,35 @@ def login():
     return render_template('login.html', msg = msg) 
 
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     if not session.get("session_adm"):
         return redirect("login")
+
+    msg = '' 
+    if request.method == 'POST' and 'firstname' in request.form and 'lastname' in request.form and 'email' in request.form and 'turma' in request.form and 'password' in request.form:
+        firstname = request.form['firstname'] 
+        lastname = request.form['lastname'] 
+        email = request.form['email'] 
+        password = request.form['password']   
+        turma = request.form['turma'] 
+        gender = request.form['gender']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor) 
+        cursor.execute('SELECT * FROM accounts WHERE firstname = % s', (firstname, )) 
+        account = cursor.fetchone() 
+        if account: 
+            msg = 'Account already exists !'
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email): 
+            msg = 'Invalid email address !'
+        elif not re.match(r'[A-Za-z0-9]+', username): 
+            msg = 'name must contain only characters and numbers !'
+        else: 
+            cursor.execute('INSERT INTO accounts VALUES (% s, % s, % s, % s, % s, % s,)', (firstname, lastname, password, turma, email, gender,)) 
+            mysql.connection.commit() 
+            msg = 'Registrador com sucesso'
+    elif request.method == 'POST': 
+        msg = 'Por favor, preencha o formulário !'
+    return render_template('register.html', msg = msg) 
 
 @app.route('/logout') 
 def logout(): 
@@ -54,7 +79,7 @@ def painel():
         return redirect("/login")
     global total_user
 
-    consulta_sql = "select * from adm_accounts"
+    consulta_sql = "select * from accounts"
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute(consulta_sql)
     linhas = cursor.fetchall()

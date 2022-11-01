@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/register.css')}}">
+    <title>Cadastro | E-Jobs</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form-image">
+            <img src="../static/src/img/register-animate.svg" alt="">
+        </div>
+        <div class="form">
+            <form action="{{ url_for('register')}}" methods="POST">
+                <div class="form-header">
+                    <div class="title">
+                        <h1>Cadastro</h1>
+                        <h1>{{msg}}</h1>
+                    </div>
+                    <div class="back-button">
+                        <button><a href="{{url_for('painel')}}">Volta</a></button>
+                    </div>
+                </div>
+                    <div class="input-group">
+                        <div class="input-box">
+                            <label for="firstname">Primeiro Nome</label>
+                            <input type="text" name="firstname" id="firstname" placeholder="Digite seu primeiro Nome" required>
+                        </div>
+                        <div class="input-box">
+                            <label for="lastname">Sobrenome</label>
+                            <input type="text" name="lastname" id="lastname" placeholder="Digite seu Sobrenome" required>
+                        </div>
+                        <div class="input-box">
+                            <label for="email">E-mail</label>
+                            <input type="email" name="email" id="email" placeholder="Digite seu email" required>
+                        </div>
+                        <div class="input-box">
+                            <label for="turma">Turma</label>
+                            <input type="number" name="turma" id="turma" placeholder="Digite a Turma" required>
+                        </div>
+                        <div class="input-box">
+                            <label for="password">Senha</label>
+                            <input type="password" name="password" id="password" placeholder="Digite uma senha" required>
+                        </div>
+                    </div>
+                    <div class="gender-inputs">
+                        <div class="gender-title">
+                            <h6>Gênero</h6>
+                        </div>
+                    
+                        <div class="gender-group">
+                            <div class="gender-input">
+                                <input type="radio" name="gender" id="fame">
+                                <label for="fame">Feminino</label>
+                            </div>
+                            <div class="gender-input">
+                                <input type="radio" name="gender" id="male">
+                                <label for="male">Masculino</label>
+                            </div>
+                            <div class="gender-input">
+                                <input type="radio" name="gender" id="other">
+                                <label for="others">Outros</label>
+                            </div>
+                            <div class="gender-input">
+                                <input type="radio" name="gender" id="none">
+                                <label for="none">Prefiro não dizer</label>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="continue-button">
+                     <button><a href="#">Cadastrar</a></button>
+                </div>         
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -34,6 +34,12 @@ def login():
             msg = 'Usuário ou Senha Incorretos !!'
     return render_template('login.html', msg = msg) 
 
+
+@app.route('/register')
+def register():
+    if not session.get("session_adm"):
+        return redirect("login")
+
 @app.route('/logout') 
 def logout(): 
    session.pop('session_adm', None) 
@@ -54,3 +60,7 @@ def painel():
     linhas = cursor.fetchall()
     total_user = cursor.rowcount
     return render_template('painel.html', total_user=total_user)
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template('404.html')

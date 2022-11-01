@@ -1,4 +1,3 @@
-from colorama import Cursor
 from flask import Flask, render_template,request, redirect, url_for, session
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
@@ -6,14 +5,18 @@ import re
 from app import app
 from app import mysql
 
+username = ''
+total_user = ''
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', username=username)
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     # Login do Administrador
+    global username
     msg = ""
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form: 
         username = request.form['username']
@@ -43,4 +46,11 @@ def logout():
 def painel():
     if not session.get("session_adm"):
         return redirect("/login")
-    return render_template('painel.html')
+    global total_user
+
+    consulta_sql = "select * from adm_accounts"
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute(consulta_sql)
+    linhas = cursor.fetchall()
+    total_user = cursor.rowcount
+    return render_template('painel.html', total_user=total_user)

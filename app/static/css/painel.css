@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'roboto',sans-serif;
+}
+
+a{
+    text-decoration: none;
+}
+
+#painel{
+    background: #F6F9FF;
+    display: flex;
+}
+
+/* menu lateral e logo */
+
+#menu-left{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    background: #2d2d2d;
+}
+
+
+.navigation{
+    position: relative;
+    height: 500px;
+    background: #424242;
+    width: 70px;
+    box-shadow: 10px 0 0 #8311ed;
+    border-left: 10px solid #424242 ;
+    overflow-x: hidden;
+    transition: 0.5s;
+    
+}
+
+.navigation:hover{
+    width: 300px;
+}
+
+.navigation ul{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-left: 5px;
+    padding-top: 40px;
+}
+
+.navigation ul li{
+    position: relative;
+    list-style: none;
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px ;
+}
+
+.navigation ul li a{
+    position: relative;
+    display: flex;
+    width: 100%;
+    text-decoration: none;
+    color: #eee;
+}
+
+.navigation ul li a .icon{
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 70px;
+}
+
+.navigation ul li a .icon ion-icon{
+    position: relative;
+    font-size: 1.5rem;
+    z-index: 1;
+}
+
+.navigation ul li a .title{
+    position: relative;
+    display: block;
+    padding-left: 10px;
+    height: 60px;
+    line-height: 60px;
+    white-space: nowrap;
+}
+
+.navigation ul li.active{
+    background: #8311ed;
+}
+
+.navigation ul li.active a::before{
+    content: '';
+    position: absolute;
+    top: -30px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: #424242;
+    border-radius: 50%;
+    box-shadow: 15px 15px 0 #8311ed;
+}
+
+.navigation ul li.active a::after{
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: #424242;
+    border-radius: 50%;
+    box-shadow: 15px -15px  #8311ed;
+}
+
+/* parte da direita do painel */
+
+#menu-right{
+    height: 100%;
+    width: 100%;
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: #434343;
+
+}
+
+main.cards{
+    display: flex;
+    padding: 64px;
+}
+
+main.cards section.card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    background: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    max-width: 468px;
+    margin-left: 32px;
+}
+
+section.card{
+    width: 25rem;
+}
+
+main.cards section.card:first-child{
+    margin-left: 0px;
+}
+
+
+main.cards section.card .icon{
+    width: 64px;
+    height: 64px;
+}
+
+main.cards section.card img{
+   width: 100%;
+}
+
+main.cards section.card h3{
+    font-size: 100%;
+    margin: 16px 0;
+}
+
+main.cards section.card span{
+    font-weight: 300;
+    max-width: 240px;
+    font-size: 80%;
+    margin-bottom: 16px;
+}
+
+main.cards section.card button{
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    border-radius: 32px;
+    border: 0;
+    cursor: pointer;
+    font-size: 80%;
+    font-weight: 500;
+    color: #fff;
+}
+
+main.cards section.card button a{
+    color: #fff;
+}
+
+main.cards section.card.book button{
+    background: linear-gradient(to right, #9F66FF, #DFCBFF);
+}
+
+main.cards section.card.user button{
+    background: linear-gradient(to right, #fd6018, #f4c7b3);
+}
+
+main.cards section.card.work button{
+    background: linear-gradient(to right, #3E8AFF, #BBDEFF);
+}
+
+main.cards section.card.book{
+    box-shadow: 20px 20px 50px -30px #a16ff2;
+}
+
+main.cards section.card.user{
+    box-shadow: 20px 20px 50px -30px #f29973;
+}
+
+main.cards section.card.work{
+    box-shadow: 20px 20px 50px -30px #69abf2;
+}
+
+
+@media screen and (max-width: 1320px) {
+    section.card{
+        width: 20rem;
+    }
+    
+}
+
+@media screen and (max-width: 1090px) {
+    section.card{
+        width: 15rem;
+    }
+    
+}
+
+@media screen and (max-width:850px) {
+    .navigation:hover{
+        width: 200px;
+    }
+
+    main.cards{
+        flex-direction: column;
+    }
+
+    main.cards section.card{
+        margin-left: 0;
+        margin-bottom: 32px;
+    }
+
+    main.cards section.card:last-child{
+        margin-bottom: 0;
+    }
+
+    main.cards section.card button{
+        font-size: 70%;
+    }
+    
+}
+
+
+

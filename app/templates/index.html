@@ -27,9 +27,15 @@
 
     <header id="showcase">
         <div id="showcase-container">
-            <h2>E-Jobs</h2>
-            <p>Visualizer Trabalhos e Livros Didaticos</p>
-            <a href="/login" class="btn">Entrar</a>
+            {% if session['session_adm'] == True: %}
+                <h2>Bem vindo</h2>
+                <p>{{username}}</p>
+                <a href="/painel" class="btn">Painel</a>
+            {% else %} 
+                <h2>E-Jobs</h2>
+                <p>Visualizer Trabalhos e Livros Didaticos</p>
+                <a href="/login" class="btn">Entrar</a>
+            {% endif %}
         </div>
     </header>
 

@@ -14,7 +14,7 @@
                 <ul class="nav-items">
                     <li><a href="#showcase">Inicio</a></li>
                 {% if session['session_adm'] == True: %}
-                    <li><a href="/">Painel</a></li>
+                    <li><a href="{{url_for('painel')}}">Painel</a></li>
                     <li><a href="/">Trabalhos</a></li>
                     <li><a href="/">Livros</a></li>
                     <li><a href="/logout">Sair</a></li>
@@ -27,8 +27,8 @@
 
     <header id="showcase">
         <div id="showcase-container">
-            <h2>Lorem ipsum dolor sit amet.</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, quisquam?</p>
+            <h2>E-Jobs</h2>
+            <p>Visualizer Trabalhos e Livros Didaticos</p>
             <a href="/login" class="btn">Entrar</a>
         </div>
     </header>
@@ -44,7 +44,7 @@
     </section>
 
     <footer id="footer">
-        <p> copyright 2022 - Todos od direitos reservados</p>
+        <p> copyright 2022 - Todos os direitos reservados</p>
         <p> Feito por <a href="https://github.com/BREK1N"><strong>Lucas Ferreira</strong></a>.</p>
     </footer>
     

@@ -19,7 +19,7 @@
                         </a>
                     </li>
                     <li class="list">
-                        <a href="#">
+                        <a href="{{url_for('users')}}">
                             <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
                             <span class="title">Usuários</span>
                         </a>
@@ -72,7 +72,7 @@
                     
                     <h3>Usuários</h3>
                     <span>Total de Usuários Cadastrados: {{total_user}}</span>
-                    <button><a href="#">Saber mais...</a></button>
+                    <button><a href="{{url_for('users')}}">Saber mais...</a></button>
                 </section>
 
                 <section class="card work">
@@ -81,6 +81,56 @@
                     <h3>Trabalhos</h3>
                     <span>Total de Trabalhos Cadastrados: </span>
                     <button><a href="#">Saber mais...</a></button>
+                </section>
+            </main>
+
+            <main class="cards">
+
+                <section class="card book">
+                    <div class="icon">
+                        <img src="../static/src/icons/livro-icon.svg" alt="Icone de livro">
+                    </div>
+                    <h3>Cadastrar Livros</h3>
+                    <span>Cadastrar Livros</span>
+                    <button><a href="#">Cadastra</a></button>
+
+                </section>
+
+                <section class="card user">
+                    <div class="icon"><img src="../static/src/icons/user-icon.svg" alt="Icone de Usuário"></div>
+                    
+                    <h3>Editar usuários</h3>
+                    <span>Editar usuários</span>
+                    <button><a href="{{url_for('users')}}">Editar</a></button>
+                </section>
+
+                <section class="card work">
+                    <div class="icon"><img src="../static/src/icons/marcador-icon.svg" alt="Icone dos Trabalhos" ></div>
+                    
+                    <h3>Cadastrar Trabalhos</h3>
+                    <span>Cadastrar Trabalhos</span>
+                    <button><a href="#">Cadastra</a></button>
+                </section>
+            </main>
+
+            <main class="cards">
+
+                <section class="card book">
+                    <div class="icon">
+                        <img src="../static/src/icons/livro-icon.svg" alt="Icone de livro">
+                    </div>
+                    <h3>Editar Livros</h3>
+                    <span>Editar Livros</span>
+                    <button><a href="#">Editar</a></button>
+
+                </section>
+
+                <section class="card work">
+                    <div class="icon"><img src="../static/src/icons/marcador-icon.svg" alt="Icone dos Trabalhos" ></div>
+                    
+                    <h3>Editar Trabalhos</h3>
+                    <span>Editar Trabalhos</span>
+                    <button><a href="#">Editar</a></button>
                 </section>
             </main>
         </div>

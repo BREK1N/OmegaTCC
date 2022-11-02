@@ -22,7 +22,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM adm_accounts WHERE user_adm = % s And password_adm = %s', (username, password))
+        cursor.execute('SELECT * FROM adm_accounts WHERE user_adm = % s And password_adm = MD5(%s)', (username, password))
         account = cursor.fetchone()
         if account:
             session['session_adm'] = True
@@ -41,26 +41,26 @@ def register():
         return redirect("login")
 
     msg = '' 
-    if request.method == 'POST' and 'firstname' in request.form and 'lastname' in request.form and 'email' in request.form and 'turma' in request.form and 'password' in request.form:
-        firstname = request.form['firstname'] 
-        lastname = request.form['lastname'] 
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form and 'nome' in request.form and 'turma' in request.form and 'gender' in request.form: 
+        username = request.form['username'] 
+        password = request.form['password'] 
         email = request.form['email'] 
-        password = request.form['password']   
+        nome = request.form['nome']   
         turma = request.form['turma'] 
-        gender = request.form['gender']
+        gender = request.form['gender']  
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor) 
-        cursor.execute('SELECT * FROM accounts WHERE firstname = % s', (firstname, )) 
+        cursor.execute('SELECT * FROM accounts WHERE username = % s', (username, )) 
         account = cursor.fetchone() 
         if account: 
-            msg = 'Account already exists !'
+            msg = 'conta ja existe'
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email): 
-            msg = 'Invalid email address !'
+            msg = 'email invalido'
         elif not re.match(r'[A-Za-z0-9]+', username): 
-            msg = 'name must contain only characters and numbers !'
+            msg = 'nome deve conter apenas caracteres e números!'
         else: 
-            cursor.execute('INSERT INTO accounts VALUES (% s, % s, % s, % s, % s, % s,)', (firstname, lastname, password, turma, email, gender,)) 
+            cursor.execute(f'INSERT INTO accounts (username, nome, password, turma, email, gender) VALUES ("{username}", "{nome}", MD5("{password}"),"{turma}", "{email}", "{gender}")')
             mysql.connection.commit() 
-            msg = 'Registrador com sucesso'
+            msg = 'Cadastrador com sucesso!'
     elif request.method == 'POST': 
         msg = 'Por favor, preencha o formulário !'
     return render_template('register.html', msg = msg) 

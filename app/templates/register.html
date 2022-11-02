@@ -13,7 +13,7 @@
             <img src="../static/src/img/register-animate.svg" alt="">
         </div>
         <div class="form">
-            <form action="{{ url_for('register')}}" methods="POST">
+            <form action="{{ url_for('register')}}" method="POST">
                 <div class="form-header">
                     <div class="title">
                         <h1>Cadastro</h1>
@@ -25,12 +25,12 @@
                 </div>
                     <div class="input-group">
                         <div class="input-box">
-                            <label for="firstname">Primeiro Nome</label>
-                            <input type="text" name="firstname" id="firstname" placeholder="Digite seu primeiro Nome" required>
+                            <label for="firstname">Username</label>
+                            <input type="text" name="username" id="username" placeholder="Digite seu primeiro Nome" required>
                         </div>
                         <div class="input-box">
-                            <label for="lastname">Sobrenome</label>
-                            <input type="text" name="lastname" id="lastname" placeholder="Digite seu Sobrenome" required>
+                            <label for="lastname">Nome</label>
+                            <input type="text" name="nome" id="nome" placeholder="Digite seu Sobrenome" required>
                         </div>
                         <div class="input-box">
                             <label for="email">E-mail</label>

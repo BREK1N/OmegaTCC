@@ -8,6 +8,7 @@ from app import mysql
 username = ''
 total_user = ''
 
+
 @app.route('/')
 def index():
     return render_template('index.html', username=username)
@@ -85,17 +86,26 @@ def painel():
     total_user = cursor.rowcount
     return render_template('painel.html', total_user=total_user)
 
-@app.route('/users')
+
+@app.route('/users', methods=['GET', 'POST'])
 def users():
+
+    busca = ""
     if not session.get("session_adm"):
         return redirect("/login")
+        
+    if request.method == "POST":
+        busca = request.form.get('busca')
+
     
     consulta_sql = "select * from accounts"
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute(consulta_sql)
     linhas = cursor.fetchall()
+
     
-    return render_template('users.html', linhas=linhas)
+    
+    return render_template('users.html', linhas=linhas, busca=busca)
 
 @app.errorhandler(404)
 def not_found(e):

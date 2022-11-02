@@ -4,11 +4,34 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>usuários</title>
 </head>
 <body>
-    {% for linha in linhas %}
-        <h2>Id: {{linha['id']}}, username: {{linha['username']}}, nome: {{linha['nome']}},Turma: {{linha['turma']}} email: {{linha['email']}}</h2>    
-    {% endfor %} 
+    <form action="{{url_for('users')}}" method="POST">
+        <input type="text" name="busca" id="pesquisa">
+        <button type="submit">enviar</button>
+    </form>
+    <a href="#{{busca}}">Buscar</a>
+    <table width="900px" height="400px" border="1">
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Nome</th>
+            <th>Turma</th>
+            <th>Email</th>
+        </tr>
+        {% for linha in linhas %}
+            <tr>
+                
+                <th id="{{linha['id']}}">{{linha['id']}}</th>
+                <th id="{{linha['username']}}">{{linha['username']}}</th>
+                <th>{{linha['nome']}}</th>
+                <th id="{{linha['turma']}}">{{linha['turma']}}</th>
+                <th>{{linha['email']}}</th>
+                
+            </tr>
+        {% endfor %}
+    
+    
 </body>
 </html>

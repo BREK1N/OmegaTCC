@@ -18,6 +18,10 @@
                     <li><a href="/">Trabalhos</a></li>
                     <li><a href="/">Livros</a></li>
                     <li><a href="/logout">Sair</a></li>
+                {% elif session['session_user'] == True %}
+                    <li><a href="/">Trabalhos</a></li>
+                    <li><a href="/">Livros</a></li>
+                    <li><a href="/logout">Sair</a></li>
                 {% else %}
                     <li><a href="/login">Login</a></li>
                 {% endif %}
@@ -28,9 +32,14 @@
     <header id="showcase">
         <div id="showcase-container">
             {% if session['session_adm'] == True: %}
-                <h2>Bem vindo</h2>
-                <p>{{username}}</p>
+                <h2>{{username}}</h2>
+                <p>Bem vindo!!</p>
                 <a href="/painel" class="btn">Painel</a>
+            {%elif session['session_user'] == True%}
+            <h2>{{username}}</h2>
+            <p>Bem vindo!!</p>
+            <a href="/" class="btn">Trabalhos</a>
+            <a href="/" class="btn">Livros</a>
             {% else %} 
                 <h2>E-Jobs</h2>
                 <p>Visualizer Trabalhos e Livros Didaticos</p>

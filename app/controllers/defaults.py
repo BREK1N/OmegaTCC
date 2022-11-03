@@ -32,7 +32,21 @@ def login():
             msg = 'Logado com Sucesso!!'
             return redirect(url_for('index'))
         else: 
-            msg = 'Usuário ou Senha Incorretos !!'
+            if request.method == 'POST' and 'username' in request.form and 'password' in request.form: 
+                username = request.form['username']
+                password = request.form['password']
+                cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+                cursor.execute('SELECT * FROM accounts WHERE username = % s And password = MD5(%s)', (username, password))
+                account = cursor.fetchone()
+                if account:
+                    session['session_user'] = True
+                    session['id'] = account['id'] 
+                    session['username'] = account['username'] 
+                    msg = 'Logado com Sucesso!!'
+                    return redirect(url_for('index'))
+                else: 
+                    msg = 'Usuário ou Senha Incorretos !!'
+            
     return render_template('login.html', msg = msg) 
 
 
@@ -68,7 +82,8 @@ def register():
 
 @app.route('/logout') 
 def logout(): 
-   session.pop('session_adm', None) 
+   session.pop('session_adm', None)
+   session.pop('session_user', None) 
    session.pop('id', None) 
    session.pop('username', None) 
    return redirect(url_for('index')) 

@@ -11889,3 +11889,7 @@ input#search-bar {
 
   color: #eee;
 }
+
+.btn:first-child{
+  width: 10%;
+}

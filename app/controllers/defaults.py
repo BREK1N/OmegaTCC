@@ -90,6 +90,7 @@ def painel():
 @app.route('/users', methods=['GET', 'POST'])
 def users():
 
+
     busca = ""
     if not session.get("session_adm"):
         return redirect("/login")

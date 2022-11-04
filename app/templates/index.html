@@ -36,10 +36,10 @@
                 <p>Bem vindo!!</p>
                 <a href="/painel" class="btn">Painel</a>
             {%elif session['session_user'] == True%}
-            <h2>{{username}}</h2>
-            <p>Bem vindo!!</p>
-            <a href="/" class="btn">Trabalhos</a>
-            <a href="/" class="btn">Livros</a>
+                <h2>{{session['nome']}}</h2>
+                <p>Bem vindo!!</p>
+                <a href="/" class="btn">Trabalhos</a>
+                <a href="/" class="btn">Livros</a>
             {% else %} 
                 <h2>E-Jobs</h2>
                 <p>Visualizer Trabalhos e Livros Didaticos</p>

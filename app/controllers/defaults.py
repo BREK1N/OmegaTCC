@@ -7,7 +7,7 @@ from app import mysql
 
 username = ''
 total_user = ''
-
+nome = ""
 
 @app.route('/')
 def index():
@@ -16,8 +16,10 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    global nome
     # Login do Administrador
     global username
+
     msg = ""
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form: 
         username = request.form['username']
@@ -41,6 +43,7 @@ def login():
                 if account:
                     session['session_user'] = True
                     session['id'] = account['id'] 
+                    session['nome'] = account['nome']
                     session['username'] = account['username'] 
                     msg = 'Logado com Sucesso!!'
                     return redirect(url_for('index'))
@@ -53,6 +56,8 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if not session.get("session_adm"):
+        if session.get("session_user"):
+            return redirect('404')
         return redirect("login")
 
     msg = '' 
@@ -84,6 +89,7 @@ def register():
 def logout(): 
    session.pop('session_adm', None)
    session.pop('session_user', None) 
+   session.pop('nome', None)
    session.pop('id', None) 
    session.pop('username', None) 
    return redirect(url_for('index')) 
@@ -92,7 +98,10 @@ def logout():
 @app.route('/painel')
 def painel():
     if not session.get("session_adm"):
-        return redirect("/login")
+        if session.get("session_user"):
+            return redirect('404')
+        return redirect("login")
+
     global total_user
 
     consulta_sql = "select * from accounts"
@@ -104,6 +113,10 @@ def painel():
 
 @app.route('/users', methods=['GET', 'POST'])
 def users():
+    if not session.get("session_adm"):
+        if session.get("session_user"):
+            return redirect('404')
+        return redirect("login")
 
 
     busca = ""

@@ -63,7 +63,7 @@
                     </div>
                     <h3>Livros</h3>
                     <span>Total de Livros Cadastrados: {{total_book}}</span>
-                    <button><a href="#">Saber mais...</a></button>
+                    <button><a href="{{url_for('livros')}}">Saber mais...</a></button>
 
                 </section>
 
@@ -79,8 +79,8 @@
                     <div class="icon"><img src="../static/src/icons/marcador-icon.svg" alt="Icone dos Trabalhos" ></div>
                     
                     <h3>Trabalhos</h3>
-                    <span>Total de Trabalhos Cadastrados: </span>
-                    <button><a href="#">Saber mais...</a></button>
+                    <span>Total de Trabalhos Cadastrados: {{total_work}} </span>
+                    <button><a href="{{url_for('work')}}">Saber mais...</a></button>
                 </section>
             </main>
 

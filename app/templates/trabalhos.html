@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+  	<title>Lista de trabalhos</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="{{url_for('static', filename='css/painel_users.css')}}">
+
+	</head>
+	<body>
+		{% if session.get('session_user') %}
+			<a href="{{url_for('index')}}" class="btn">⬅ Voltar</a>
+		{%else%}
+        	<a href="{{url_for('painel')}}" class="btn">⬅ Voltar</a>
+		
+		{%endif%}
+
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Trabalhos</h2>
+				</div>
+                <form action="{{url_for('livros')}}" method="POST">
+                    <input type="text" name="busca" id="search-bar" placeholder="Buscar Nome| ISBN ">
+                    <button type="submit" class="btn">Enviar</button>
+                </form>
+
+			</div>
+
+			
+			<div class="row">
+				<div class="col-md-12">
+					<div class="table-wrap">
+						<table class="table">
+						  <thead class="thead-dark">
+						    <tr>
+						      <th>Nome do Livro</th>
+						      <th>Visualizar</th>
+                              <th>Baixar</th>
+						      <th>&nbsp;</th>
+						    </tr>
+						  </thead>
+	
+							{% for arq in lista_work %}
+									<tbody>
+										{% if busca in arq[64::]%}
+											<tr>  
+												<th>{{arq[64::]}}</th>
+												<th><a href="{{arq}}" target="_blank" rel="noopener noreferrer">Visualizar</a></th>
+												<th ><a href="/get-file_w/{{arq[64::]}}" >Baixar</a></th>
+											
+												
+											</tr>	
+										{% endif %}
+							{% endfor %}								
+								     
+                       
+
+						
+						  
+						  
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script src="js/jquery.min.js"></script>
+  <script src="js/popper.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+
+	</body>
+</html>
+

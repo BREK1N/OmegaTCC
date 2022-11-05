@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="pt-br">
   <head>
-  	<title>Table 02</title>
+  	<title>Lista de Livros</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -13,7 +13,12 @@
 
 	</head>
 	<body>
-        <a href="{{url_for('painel')}}" class="btn">⬅ Voltar</a>
+		{% if session.get('session_user') %}
+			<a href="{{url_for('index')}}" class="btn">⬅ Voltar</a>
+		{%else%}
+        	<a href="{{url_for('painel')}}" class="btn">⬅ Voltar</a>
+		
+		{%endif%}
 
 	<section class="ftco-section">
 		<div class="container">
@@ -35,41 +40,27 @@
 						<table class="table">
 						  <thead class="thead-dark">
 						    <tr>
-						      <th>id</th>
 						      <th>Nome do Livro</th>
-                              <th>ISBN</th>
-						      <th>Genero 1</th>
-                              <th>Genero 2</th>
-                              <th>Genero 3</th>
-                              <th>Data de Upload</th>
 						      <th>Visualizar</th>
                               <th>Baixar</th>
 						      <th>&nbsp;</th>
 						    </tr>
 						  </thead>
-						
-                          {% for linha in linhas %}
-                            <tbody>
-                                {% if busca in linha['nome_livro'] or busca in linha['ISBN']%}
-                                    <tr>  
-                                        <th id="{{linha['id']}}">{{linha['id']}}</th>
-                                        <th id="{{linha['nome_livro']}}">{{linha['nome_livro']}}</th>
-                                        <th>{{linha['ISBN']}}</th>
-                                        <th>{{linha['genero_1']}}</th>
-                                        <th>{{linha['genero_2']}}</th>
-                                        <th>{{linha['genero_3']}}</th>
-                                        <th>{{linha['data']}}</th>
-                                        <th><a href="{{linha['path']}}" target="_blank" rel="noopener noreferrer"></a></th>
-                                        <th ><a href="" download="{{linha['path']}}">Baixar</a></th>
-                                    
-                                        
-                                    </tr>
-                                {% endif %}
-								
-
-								
-                          </tbody>          
-                        {% endfor %}
+	
+							{% for arq in lista_book %}
+									<tbody>
+										{% if busca in arq[61::]%}
+											<tr>  
+												<th>{{arq[61::]}}</th>
+												<th><a href="{{arq}}" target="_blank" rel="noopener noreferrer">Visualizar</a></th>
+												<th ><a href="/get-file_b/{{arq[61::]}}" >Baixar</a></th>
+											
+												
+											</tr>	
+										{% endif %}
+							{% endfor %}								
+								     
+                       
 
 						
 						  

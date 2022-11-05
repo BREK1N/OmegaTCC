@@ -1,6 +1,5 @@
-from flask import Flask, render_template,request, redirect, url_for, session, jsonify, send_from_directory, flash
+from flask import Flask, render_template,request, redirect, url_for, session, jsonify, send_from_directory, flash, send_file
 from werkzeug.utils import secure_filename
-from flask import send_from_directory, jsonify
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
@@ -15,15 +14,15 @@ data_em_texto = '{}/{}/{}'.format(data_atual.day, data_atual.month,data_atual.ye
 
 UPLOAD_FOLDER_BOOK = 'C:\\Users\\Lucas\\Documents\\GitHub\\OmegaTCC\\app\\arquivos\\Livros'
 UPLOAD_FOLDER_WORK = 'C:\\Users\\Lucas\\Documents\\GitHub\\OmegaTCC\\app\\arquivos\\Trabalhos'
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'docs'}
 
 username = ''
 total_user = ''
-total_book = ''
-total_work = ''
 nome = ""
 
+i = 0
+
 lista_book = []
+lista_work = []
 
 
 @app.route('/')
@@ -126,12 +125,10 @@ def painel():
     cursor.execute(consulta_sql)
     total_user = cursor.rowcount
 
-    consulta_sql_book = "select * from livros"
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute(consulta_sql_book)
-    total_book = cursor.rowcount
+    total_book = len(lista_book)
+    total_work = len(lista_work)
 
-    return render_template('painel.html', total_user=total_user, total_book=total_book)
+    return render_template('painel.html', total_user=total_user, total_book=total_book, total_work=total_work)
 
 
 @app.route('/users', methods=['GET', 'POST'])
@@ -160,60 +157,16 @@ def users():
     
     return render_template('users.html', linhas=linhas, busca=busca)
 
-@app.route('/upload_book', methods=['GET', 'POST'])
+@app.route('/upload_book')
 def upload_book():
+    return render_template('register_book.html')
 
+@app.route('/upload_book2', methods=['GET', 'POST'])
+def upload_book2():
 
-    
-    global arq
-    global lista_book
-    last_book = ""
-
-
-    pasta = UPLOAD_FOLDER_BOOK
-    for diretorio, subpastas, arquivos in os.walk(pasta):
-        for arquivo in arquivos:
-            arq = (os.path.join(os.path.realpath(diretorio), arquivo))
-            lista_book.append(arq)
-
-
-    
-
-    if request.method == 'POST':
-        # verifique se a solicitacao de postagem tem a parte do arquivo
-        if 'file' not in request.files:
-            flash('Nao tem a parte do arquivo')
-            return redirect(request.url)
-        file = request.files['file']
-        
-
-        # Se o usuario nao selecionar um arquivo, o navegador envia um
-        # arquivo vazio sem um nome de arquivo.
-        
-        if file.filename == '':
-            flash('Nenhum arquivo selecionado')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-            if request.method == "POST":
-                nome_livro = request.form.get('nome_book')
-                isbn = request.form.get('ISBN')
-                genero1 = request.form.get('genero1')
-                genero2 = request.form.get('genero2')
-                genero3 = request.form.get('genero3')
-                cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor) 
-                cursor.execute('SELECT * FROM livros WHERE ISBN = % s', (isbn, )) 
-                livro = cursor.fetchone() 
-                cursor.execute(f'INSERT INTO livros (nome_livro, path, data, ISBN, genero_1,genero_2,genero_3) VALUES ("{nome_livro}", "{lista_book[::-1]}", "{data_em_texto}","{isbn}","{genero1}","{genero2}","{genero3}")')
-                mysql.connection.commit()
-
-
-            return redirect(url_for('upload_book'))
-
-
-            
+    file = request.files['file']
+    savepath = os.path.join(UPLOAD_FOLDER_BOOK, secure_filename(file.filename))
+    file.save(savepath)            
    
     
     return render_template('register_book.html', lista_book=lista_book, data_atual=data_em_texto)
@@ -234,12 +187,54 @@ def livros():
     if request.method == "POST":
         busca = request.form.get('busca')
 
-    consulta_sql = "select * from livros"
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute(consulta_sql)
-    linhas = cursor.fetchall()
 
-    return render_template('Livros.html', linhas=linhas, busca=busca, lista_book=lista_book)
+
+    return render_template('Livros.html', busca=busca, lista_book=lista_book)
+
+@app.route('/upload_work')
+def upload_work():
+    return render_template('register_work.html')
+
+@app.route('/upload_work2', methods=['GET', 'POST'])
+def upload_work2():
+
+    file = request.files['file']
+    savepath = os.path.join(UPLOAD_FOLDER_WORK, secure_filename(file.filename))
+    file.save(savepath)            
+   
+    
+    return render_template('register_book.html', lista_work=lista_work)
+    
+
+@app.route('/Trabalhos', methods=['GET', 'POST'])
+def work():
+    busca = ""
+    linha = []
+
+    lista_work.clear()
+    pasta = UPLOAD_FOLDER_WORK
+    for diretorio, subpastas, arquivos in os.walk(pasta):
+        for arquivo in arquivos:
+            arq = (os.path.join(os.path.realpath(diretorio), arquivo))
+            lista_work.append(arq)
+    
+    if request.method == "POST":
+        busca = request.form.get('busca')
+
+    return render_template('trabalhos.html', busca=busca, lista_work=lista_work)
+
+
+
+@app.route('/get-file_b/<filename>')
+def getfile_b(filename):
+    file = os.path.join(UPLOAD_FOLDER_BOOK, filename)
+    return send_file(file, mimetype='arq/pdf')
+
+@app.route('/get-file_w/<filename>')
+def getfile_w(filename):
+    file = os.path.join(UPLOAD_FOLDER_WORK, filename)
+    return send_file(file, mimetype='arq/pdf')
+
 
 
 

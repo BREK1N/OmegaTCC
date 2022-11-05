@@ -15,12 +15,12 @@
                     <li><a href="#showcase">Inicio</a></li>
                 {% if session['session_adm'] == True: %}
                     <li><a href="{{url_for('painel')}}">Painel</a></li>
-                    <li><a href="/">Trabalhos</a></li>
-                    <li><a href="/">Livros</a></li>
+                    <li><a href="{{url_for('work')}}">Trabalhos</a></li>
+                    <li><a href="{{url_for('livros')}}">Livros</a></li>
                     <li><a href="/logout">Sair</a></li>
                 {% elif session['session_user'] == True %}
-                    <li><a href="/">Trabalhos</a></li>
-                    <li><a href="/">Livros</a></li>
+                    <li><a href="{{url_for('work')}}">Trabalhos</a></li>
+                    <li><a href="{{url_for('livros')}}">Livros</a></li>
                     <li><a href="/logout">Sair</a></li>
                 {% else %}
                     <li><a href="/login">Login</a></li>
@@ -38,8 +38,8 @@
             {%elif session['session_user'] == True%}
                 <h2>{{session['nome']}}</h2>
                 <p>Bem vindo!!</p>
-                <a href="/" class="btn">Trabalhos</a>
-                <a href="/" class="btn">Livros</a>
+                <a href="{{url_for('work')}}" class="btn">Trabalhos</a>
+                <a href="{{url_for('livros')}}" class="btn">Livros</a>
             {% else %} 
                 <h2>E-Jobs</h2>
                 <p>Visualizer Trabalhos e Livros Didaticos</p>

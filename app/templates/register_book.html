@@ -13,7 +13,7 @@
             <img src="../static/src/img/register-animate.svg" alt="">
         </div>
         <div class="form">
-            <form action="{{ url_for('upload_book')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{ url_for('upload_book2')}}" method="POST" enctype="multipart/form-data">
                 <div class="form-header">
                     <div class="title">
                         <h1>Cadastro de Livros</h1>
@@ -25,63 +25,15 @@
                 </div>
                     <div class="input-group">
                         <div class="input-box">
-                            <label for="firstname">Nome do Livro</label>
-                            <input type="text" name="nome_book" id="username" placeholder="Digite seu primeiro Nome" required>
+                            <label>Nome do Arquivo e o nome do Livro( verifique o nome antes)</label>
+                            <input type="file" name="file" id="email" placeholder="Digite seu email" >
                         </div>
-                        <div class="input-box">
-                            <label for="lastname">ISBN</label>
-                            <input type="text" name="ISBN" id="nome" placeholder="Digite seu Sobrenome" required>
-                        </div>
-                        <div class="input-box">
-                            <label for="email">Upload</label>
-                            <input type="file" name="file" id="email" placeholder="Digite seu email" required>
-                        </div>
-                        <div class="input-box">
-                            <h5>Genero 1</h5>
-                            <select name="genero1" id="genero1">
-                                <option value="genero2">----None----</option>
-                                <option value="Ação">Ação</option>
-                                <option value="Aventura">Aventura</option>
-                                <option value="Romance">Romance</option>
-                                <option value="Comédia">Comédia</option>
-                                <option value="Dráma">Dráma</option>
-                                <option value="Terror">Terror</option>
-                                <option value="Fic. Cientifica">Fic. Cientifica</option>
-                                <option value="Critica">Critica</option>
-                            </select>
-                            <h5>Genero 2</h5>
-                            <select name="genero2" id="genero2">
-                                <option value="genero2">----None----</option>
-                                <option value="Ação">Ação</option>
-                                <option value="Aventura">Aventura</option>
-                                <option value="Romance">Romance</option>
-                                <option value="Comédia">Comédia</option>
-                                <option value="Dráma">Dráma</option>
-                                <option value="Terror">Terror</option>
-                                <option value="Fic. Cientifica">Fic. Cientifica</option>
-                                <option value="Critica">Critica</option>
-                            </select>
-                            <h5>Genero 3</h5>
-                            <select name="genero3" id="genero3">
-                                <option value="genero2">----None----</option>
-                                <option value="Ação">Ação</option>
-                                <option value="Aventura">Aventura</option>
-                                <option value="Romance">Romance</option>
-                                <option value="Comédia">Comédia</option>
-                                <option value="Dráma">Dráma</option>
-                                <option value="Terror">Terror</option>
-                                <option value="Fic. Cientifica">Fic. Cientifica</option>
-                                <option value="Critica">Critica</option>
-                            </select>
-                            
-                        
-
                     </div>
 
 
 
                 <div class="continue-button">
-                     <button ><input type="submit" value="submit">Upload</button>
+                     <button ><input type="submit" value="Upload"></button>
                 </div>         
             </form>
         </div>

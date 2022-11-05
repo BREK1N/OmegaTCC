@@ -22,7 +22,7 @@
 					<h2 class="heading-section">Usuários | Alunos</h2>
 				</div>
                 <form action="{{url_for('users')}}" method="POST">
-                    <input type="text" name="busca" id="search-bar">
+                    <input type="text" name="busca" id="search-bar" placeholder="Buscar Nome| Turma| ">
                     <button type="submit" class="btn">Enviar</button>
                 </form>
 
@@ -43,7 +43,7 @@
 						  </thead>
                           {% for linha in linhas %}
                             <tbody>
-                                {% if busca == linha['id'] or busca in linha['username'] or busca in linha['turma'] %}
+                                {% if busca in linha['username'] or busca in linha['turma']%}
                                     <tr>  
                                         <th id="{{linha['id']}}">{{linha['id']}}</th>
                                         <th id="{{linha['username']}}">{{linha['username']}}</th>
@@ -53,8 +53,11 @@
                                         
                                     </tr>
                                 {% endif %}
+
+								
                           </tbody>          
                         {% endfor %}
+						
 						  
 						  
 						</table>

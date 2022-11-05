@@ -11892,4 +11892,5 @@ input#search-bar {
 
 .btn:first-child{
   width: 10%;
+  position: fixed;
 }

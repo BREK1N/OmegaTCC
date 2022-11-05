@@ -8,17 +8,19 @@ import os
 from app import app
 from app import allowed_file
 from app import mysql
+from datetime import date
+
+data_atual = date.today()
+data_em_texto = '{}/{}/{}'.format(data_atual.day, data_atual.month,data_atual.year)
 
 UPLOAD_FOLDER_BOOK = 'C:\\Users\\Lucas\\Documents\\GitHub\\OmegaTCC\\app\\arquivos\\Livros'
 UPLOAD_FOLDER_WORK = 'C:\\Users\\Lucas\\Documents\\GitHub\\OmegaTCC\\app\\arquivos\\Trabalhos'
-
-arq = ""
-
-
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'docs'}
 
 username = ''
 total_user = ''
+total_book = ''
+total_work = ''
 nome = ""
 
 lista_book = []
@@ -123,7 +125,13 @@ def painel():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute(consulta_sql)
     total_user = cursor.rowcount
-    return render_template('painel.html', total_user=total_user)
+
+    consulta_sql_book = "select * from livros"
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute(consulta_sql_book)
+    total_book = cursor.rowcount
+
+    return render_template('painel.html', total_user=total_user, total_book=total_book)
 
 
 @app.route('/users', methods=['GET', 'POST'])
@@ -154,11 +162,22 @@ def users():
 
 @app.route('/upload_book', methods=['GET', 'POST'])
 def upload_book():
+
+
     
     global arq
     global lista_book
+    last_book = ""
 
-    lista_book.clear()
+
+    pasta = UPLOAD_FOLDER_BOOK
+    for diretorio, subpastas, arquivos in os.walk(pasta):
+        for arquivo in arquivos:
+            arq = (os.path.join(os.path.realpath(diretorio), arquivo))
+            lista_book.append(arq)
+
+
+    
 
     if request.method == 'POST':
         # verifique se a solicitacao de postagem tem a parte do arquivo
@@ -167,6 +186,7 @@ def upload_book():
             return redirect(request.url)
         file = request.files['file']
         
+
         # Se o usuario nao selecionar um arquivo, o navegador envia um
         # arquivo vazio sem um nome de arquivo.
         
@@ -176,19 +196,50 @@ def upload_book():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+            if request.method == "POST":
+                nome_livro = request.form.get('nome_book')
+                isbn = request.form.get('ISBN')
+                genero1 = request.form.get('genero1')
+                genero2 = request.form.get('genero2')
+                genero3 = request.form.get('genero3')
+                cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor) 
+                cursor.execute('SELECT * FROM livros WHERE ISBN = % s', (isbn, )) 
+                livro = cursor.fetchone() 
+                cursor.execute(f'INSERT INTO livros (nome_livro, path, data, ISBN, genero_1,genero_2,genero_3) VALUES ("{nome_livro}", "{lista_book[::-1]}", "{data_em_texto}","{isbn}","{genero1}","{genero2}","{genero3}")')
+                mysql.connection.commit()
+
+
             return redirect(url_for('upload_book'))
+
+
             
+   
+    
+    return render_template('register_book.html', lista_book=lista_book, data_atual=data_em_texto)
+    
+
+@app.route('/livros', methods=['GET', 'POST'])
+def livros():
+    busca = ""
+    linha = []
+
+    lista_book.clear()
     pasta = UPLOAD_FOLDER_BOOK
     for diretorio, subpastas, arquivos in os.walk(pasta):
         for arquivo in arquivos:
             arq = (os.path.join(os.path.realpath(diretorio), arquivo))
             lista_book.append(arq)
     
-    return render_template('register_book.html', lista_book=lista_book)
-    
-    
+    if request.method == "POST":
+        busca = request.form.get('busca')
 
+    consulta_sql = "select * from livros"
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute(consulta_sql)
+    linhas = cursor.fetchall()
 
+    return render_template('Livros.html', linhas=linhas, busca=busca, lista_book=lista_book)
 
 
 

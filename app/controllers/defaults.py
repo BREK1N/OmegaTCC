@@ -1,13 +1,28 @@
-from flask import Flask, render_template,request, redirect, url_for, session
+from flask import Flask, render_template,request, redirect, url_for, session, jsonify, send_from_directory, flash
+from werkzeug.utils import secure_filename
+from flask import send_from_directory, jsonify
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
+import os
 from app import app
+from app import allowed_file
 from app import mysql
+
+UPLOAD_FOLDER_BOOK = 'C:\\Users\\Lucas\\Documents\\GitHub\\OmegaTCC\\app\\arquivos\\Livros'
+UPLOAD_FOLDER_WORK = 'C:\\Users\\Lucas\\Documents\\GitHub\\OmegaTCC\\app\\arquivos\\Trabalhos'
+
+arq = ""
+
+
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'docs'}
 
 username = ''
 total_user = ''
 nome = ""
+
+lista_book = []
+
 
 @app.route('/')
 def index():
@@ -87,13 +102,13 @@ def register():
 
 @app.route('/logout') 
 def logout(): 
+
    session.pop('session_adm', None)
    session.pop('session_user', None) 
    session.pop('nome', None)
    session.pop('id', None) 
    session.pop('username', None) 
    return redirect(url_for('index')) 
-
 
 @app.route('/painel')
 def painel():
@@ -113,6 +128,7 @@ def painel():
 
 @app.route('/users', methods=['GET', 'POST'])
 def users():
+
     if not session.get("session_adm"):
         if session.get("session_user"):
             return redirect('404')
@@ -135,6 +151,46 @@ def users():
     
     
     return render_template('users.html', linhas=linhas, busca=busca)
+
+@app.route('/upload_book', methods=['GET', 'POST'])
+def upload_book():
+    
+    global arq
+    global lista_book
+
+    lista_book.clear()
+
+    if request.method == 'POST':
+        # verifique se a solicitacao de postagem tem a parte do arquivo
+        if 'file' not in request.files:
+            flash('Nao tem a parte do arquivo')
+            return redirect(request.url)
+        file = request.files['file']
+        
+        # Se o usuario nao selecionar um arquivo, o navegador envia um
+        # arquivo vazio sem um nome de arquivo.
+        
+        if file.filename == '':
+            flash('Nenhum arquivo selecionado')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('upload_book'))
+            
+    pasta = UPLOAD_FOLDER_BOOK
+    for diretorio, subpastas, arquivos in os.walk(pasta):
+        for arquivo in arquivos:
+            arq = (os.path.join(os.path.realpath(diretorio), arquivo))
+            lista_book.append(arq)
+    
+    return render_template('register_book.html', lista_book=lista_book)
+    
+    
+
+
+
+
 
 @app.errorhandler(404)
 def not_found(e):

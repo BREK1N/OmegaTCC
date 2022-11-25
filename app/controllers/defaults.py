@@ -12,8 +12,8 @@ from datetime import date
 data_atual = date.today()
 data_em_texto = '{}/{}/{}'.format(data_atual.day, data_atual.month,data_atual.year)
 
-UPLOAD_FOLDER_BOOK = 'C:\\Users\\Lucas\\Documents\\GitHub\\OmegaTCC\\app\\arquivos\\Livros'
-UPLOAD_FOLDER_WORK = 'C:\\Users\\Lucas\\Documents\\GitHub\\OmegaTCC\\app\\arquivos\\Trabalhos'
+UPLOAD_FOLDER_BOOK = 'C:\\Users\\Cliente\\Documents\\GitHub\\OmegaTCC\\app\\arquivos\\Livros'
+UPLOAD_FOLDER_WORK = 'C:\\Users\\Cliente\\Documents\\GitHub\\OmegaTCC\\app\\arquivos\\Trabalhos'
 
 username = ''
 total_user = ''
@@ -140,7 +140,8 @@ def users():
         return redirect("login")
 
 
-    busca = ""
+    busca = " "
+
     if not session.get("session_adm"):
         return redirect("/login")
         

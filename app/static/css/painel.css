@@ -205,11 +205,11 @@ main.cards section.card.book button{
 }
 
 main.cards section.card.user button{
-    background: linear-gradient(to right, #fd6018, #f4c7b3);
+    background: linear-gradient(to right, rgb(253, 96, 24), #f4c7b3);
 }
 
 main.cards section.card.work button{
-    background: linear-gradient(to right, #3E8AFF, #BBDEFF);
+    background: linear-gradient(to right, rgb(62, 138, 255), #BBDEFF);
 }
 
 main.cards section.card.book{

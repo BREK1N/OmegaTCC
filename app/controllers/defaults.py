@@ -12,17 +12,26 @@ from datetime import date
 data_atual = date.today()
 data_em_texto = '{}/{}/{}'.format(data_atual.day, data_atual.month,data_atual.year)
 
-UPLOAD_FOLDER_BOOK = 'C:\\Users\\Cliente\\Documents\\GitHub\\OmegaTCC\\app\\arquivos\\Livros'
-UPLOAD_FOLDER_WORK = 'C:\\Users\\Cliente\\Documents\\GitHub\\OmegaTCC\\app\\arquivos\\Trabalhos'
+UPLOAD_FOLDER_BOOK = 'C:\\Users\\Cliente\\Documents\\GitHub\\OmegaTCC\\app\\static\\arquivos\\Livros'
+UPLOAD_FOLDER_WORK = 'C:\\Users\\Cliente\\Documents\\GitHub\\OmegaTCC\\app\\static\\arquivos\\Trabalhos'
 
 username = ''
 total_user = ''
 nome = ""
 
+
 i = 0
 
 lista_book = []
 lista_work = []
+
+def etc(diretorio,file):
+    path = diretorio
+    dir = os.listdir(path)
+    if file == "":
+        pass
+    elif file in dir:
+        os.remove(f'{path}/{file}')
 
 
 @app.route('/')
@@ -140,7 +149,7 @@ def users():
         return redirect("login")
 
 
-    busca = " "
+    busca = ""
 
     if not session.get("session_adm"):
         return redirect("/login")
@@ -153,6 +162,7 @@ def users():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute(consulta_sql)
     linhas = cursor.fetchall()
+    
 
     
     
@@ -176,7 +186,13 @@ def upload_book2():
 @app.route('/livros', methods=['GET', 'POST'])
 def livros():
     busca = ""
+    delete = ""
     linha = []
+
+    if request.method == "POST":
+        delete = request.form.get('delete')
+
+    etc(UPLOAD_FOLDER_BOOK, delete)
 
     lista_book.clear()
     pasta = UPLOAD_FOLDER_BOOK
@@ -204,13 +220,20 @@ def upload_work2():
     file.save(savepath)            
    
     
-    return render_template('register_book.html', lista_work=lista_work)
+    return render_template('register_work.html', lista_work=lista_work)
     
 
 @app.route('/Trabalhos', methods=['GET', 'POST'])
 def work():
     busca = ""
     linha = []
+    delete = ""
+    
+    if request.method == "POST":
+        delete = request.form.get('delete')
+
+    etc(UPLOAD_FOLDER_WORK, delete)
+    
 
     lista_work.clear()
     pasta = UPLOAD_FOLDER_WORK
@@ -221,6 +244,7 @@ def work():
     
     if request.method == "POST":
         busca = request.form.get('busca')
+        
 
     return render_template('trabalhos.html', busca=busca, lista_work=lista_work)
 

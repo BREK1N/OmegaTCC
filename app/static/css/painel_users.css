@@ -11834,26 +11834,7 @@ input#search-bar {
   border: 1px solid #D0CFCE;
   outline: none;
 
-  &:focus {
-    border: 1px solid #000000;
-    transition: 0.35s ease;
-    color: #000000;
-
-    &::-webkit-input-placeholder {
-      transition: opacity 0.45s ease;
-      opacity: 0;
-    }
-
-    &::-moz-placeholder {
-      transition: opacity 0.45s ease;
-      opacity: 0;
-    }
-
-    &:-ms-placeholder {
-      transition: opacity 0.45s ease;
-      opacity: 0;
-    }
-  }
+  
 }
 
 .btn{
@@ -11885,7 +11866,38 @@ input#search-bar {
 .btn:hover{
   background: rgb(71, 18, 121);
 
-  padding: 1.2rem 0;
+
+  color: #eee;
+}
+
+.btn2{
+  width: 80%;
+
+  padding: 1rem 0;
+  margin: 0.8rem;
+
+  border: none;
+  border-radius: 0.8rem;
+  box-shadow: 0.2rem 2rem 2rem -1.2rem blueviolet;
+
+  outline: none;
+
+  font-weight: bold;
+
+  letter-spacing: 0.4rem;
+
+  color: #eee;
+
+  background: blueviolet;
+
+  cursor: pointer;
+
+  transition: 500ms;
+
+}
+
+.btn2:hover{
+  background: red;
 
   color: #eee;
 }
@@ -11893,4 +11905,59 @@ input#search-bar {
 .btn:first-child{
   width: 10%;
   position: fixed;
+}
+
+
+#modal_pdf{
+  width: 50px;
+  height: 30px;
+}
+#modal_pdf:checked + .modal_a{
+  display: block;
+
+}
+
+.modal .Fechar_modal + #modal_a{
+  display: none;
+}
+
+.checkboxmodal{
+  display: none;
+}
+
+.modal_a .Fechar_modal{
+  position: relative;
+  top: 10px;
+  left: 20px;
+
+  font-size: 20px;
+  color: white;
+
+}
+
+.modal_a .Fechar_modal:hover{
+  color:red;
+  cursor: pointer;
+}
+
+.abrir_modal{
+  cursor:pointer;
+}
+
+.conteudo_modal embed{
+  width: 36vw;
+  height: 90vh ;
+}
+.modal_a{
+  display: none;
+
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+
+  
+  
+  background: rgba(0,0,0,0.5);
+
+  
 }

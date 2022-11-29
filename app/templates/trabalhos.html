@@ -26,9 +26,13 @@
 				<div class="col-md-6 text-center mb-5">
 					<h2 class="heading-section">Trabalhos</h2>
 				</div>
-                <form action="{{url_for('livros')}}" method="POST">
+                <form action="{{url_for('work')}}" method="POST">
                     <input type="text" name="busca" id="search-bar" placeholder="Buscar Nome| ISBN ">
                     <button type="submit" class="btn">Enviar</button>
+                    {% if session.get('session_adm') %}
+						<input type="text" name="delete" id="search-bar" placeholder="deletar Trabalho">
+						<button type="submit" class="btn2">deletar</button>
+					{%endif%}
                 </form>
 
 			</div>
@@ -40,7 +44,7 @@
 						<table class="table">
 						  <thead class="thead-dark">
 						    <tr>
-						      <th>Nome do Livro</th>
+						      <th>Nome do Trabalho</th>
 						      <th>Visualizar</th>
                               <th>Baixar</th>
 						      <th>&nbsp;</th>
@@ -49,11 +53,21 @@
 	
 							{% for arq in lista_work %}
 									<tbody>
-										{% if busca in arq[66::]%}
+										{% if busca in arq[73::] or busca == "o"%}
 											<tr>  
-												<th>{{arq[66::]}}</th>
-												<th><a href="{{arq}}" target="_blank" rel="noopener noreferrer">Visualizar</a></th>
-												<th ><a href="/get-file_w/{{arq[66::]}}" >Baixar</a></th>
+												<th>{{arq[73::]}}</th>
+												<th>
+													<input type="checkbox" id="modal_pdf" class="">
+
+													<div class="modal_a">
+														<div class="conteudo_modal">
+															<embed src="{{url_for('static',filename='arquivos/Trabalhos/')}}{{arq[73::]}}" type="application/pdf">
+														</div>
+													</div>
+												
+											
+												</th>
+												<th ><a href="/get-file_w/{{arq[73::]}}" >Baixar</a></th>
 											
 												
 											</tr>	

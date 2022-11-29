@@ -17,8 +17,11 @@
 			<a href="{{url_for('index')}}" class="btn">⬅ Voltar</a>
 		{%else%}
         	<a href="{{url_for('painel')}}" class="btn">⬅ Voltar</a>
+
 		
 		{%endif%}
+
+	
 
 	<section class="ftco-section">
 		<div class="container">
@@ -29,6 +32,10 @@
                 <form action="{{url_for('livros')}}" method="POST">
                     <input type="text" name="busca" id="search-bar" placeholder="Buscar Nome| ISBN ">
                     <button type="submit" class="btn">Enviar</button>
+					{% if session.get('session_adm') %}
+						<input type="text" name="delete" id="search-bar" placeholder="deletar Livro">
+						<button type="submit" class="btn2">deletar</button>
+					{%endif%}
                 </form>
 
 			</div>
@@ -50,13 +57,26 @@
 							{% for arq in lista_book %}
 									<tbody>
 										{% if busca in arq[63::]%}
+												
 											<tr>  
-												<th>{{arq[63::]}}</th>
-												<th><a href="{{arq}}" target="_blank" rel="noopener noreferrer">Visualizar</a></th>
-												<th ><a href="/get-file_b/{{arq[63::]}}" >Baixar</a></th>
+												<th>{{arq[70::]}}</th>
+												<th>
+													<input type="checkbox" id="modal_pdf" class="">
+
+													<div class="modal_a">
+														<div class="conteudo_modal">
+															<embed src="{{url_for('static',filename='arquivos/Livros/')}}{{arq[70::]}}" type="application/pdf">
+														</div>
+													</div>
+												
+											
+												</th>
+												<th ><a href="/get-file_b/{{arq[70::]}}" >Baixar</a></th>
 											
 												
 											</tr>	
+
+											
 										{% endif %}
 							{% endfor %}								
 								     
@@ -70,12 +90,18 @@
 				</div>
 			</div>
 		</div>
+
+		
 	</section>
+
+	
 
 	<script src="js/jquery.min.js"></script>
   <script src="js/popper.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/main.js"></script>
+
+  
 
 	</body>
 </html>

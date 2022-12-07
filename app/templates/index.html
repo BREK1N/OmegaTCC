@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
-    <title>E-jobs</title>
+    <title>Nuvem do saber</title>
 </head>
 <body>
         <nav id="navbar"> 
             <div id="navbar-container">
-                <h1 class="logo" href="/">E-Jobs</h1>
+                <h1 class="logo" href="/">Nuvem do saber</h1>
                 <ul class="nav-items">
                     <li><a href="#showcase">Inicio</a></li>
                 {% if session['session_adm'] == True: %}
@@ -41,8 +41,8 @@
                 <a href="{{url_for('work')}}" class="btn">Trabalhos</a>
                 <a href="{{url_for('livros')}}" class="btn">Livros</a>
             {% else %} 
-                <h2>E-Jobs</h2>
-                <p>Visualizer Trabalhos e Livros Didaticos</p>
+                <h2>Nuvem do saber</h2>
+                <p>Visualize Trabalhos e Livros Didaticos</p>
                 <a href="/login" class="btn">Entrar</a>
             {% endif %}
         </div>
@@ -52,8 +52,7 @@
         <h2 class="headline">Parceiros</h2>
 
         <div id="parceiros-container">
-            <img src="" alt="Logo do Ômega" class="parceiro">
-            <img src="" alt="Logo da Plural" class="parceiro">
+            <img src="../static/src/img/omegalogo.png" alt="Logo do Ômega" class="parceiro">
         </div>
 
     </section>

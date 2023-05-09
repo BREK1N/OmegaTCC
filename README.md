@@ -10,8 +10,11 @@ Baixe o projeto e abrar um cmd dentro da pasta do projeto
 
 comandos: pip install -r requirements.txt
 
+dentra da pasta app/controllers arquivo defaults altera variavel UPLOAD_FOLDER_BOOK e UPLOAD_FOLDER_WORK
+
 
 Frameworks baixados
+
 
 click==8.1.3
 colorama==0.4.5
